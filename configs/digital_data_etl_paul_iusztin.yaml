@@ -4,7 +4,7 @@ settings:
     skip_build: True
   orchestrator.sagemaker:
     synchronous: false
-    
+
 parameters:
   user_full_name: Paul Iusztin # [First Name(s)] [Last Name]
   links:
