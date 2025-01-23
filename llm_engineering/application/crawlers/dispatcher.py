@@ -12,7 +12,7 @@ from .medium import MediumCrawler
 
 class CrawlerDispatcher:
     def __init__(self) -> None:
-        self._crawlers = {}
+        self._crawlers = {} # Type: dict{URL str, type[crawler class]}
 
     @classmethod
     def build(cls) -> "CrawlerDispatcher":
@@ -34,6 +34,8 @@ class CrawlerDispatcher:
         self.register("https://github.com", GithubCrawler)
 
         return self
+    
+    # Add a new crawler to the dispatcher (e.g. for a new domain or source)
 
     def register(self, domain: str, crawler: type[BaseCrawler]) -> None:
         parsed_domain = urlparse(domain)
