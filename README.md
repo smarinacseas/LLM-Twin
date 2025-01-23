@@ -36,29 +36,29 @@ You can download and use the final trained model on [Hugging Face](https://huggi
 
 To install and run the project locally, you need the following dependencies.
 
-| Tool | Version | Purpose | Installation Link |
-|------|---------|---------|------------------|
-| pyenv | ≥2.3.36 | Multiple Python versions (optional) | [Install Guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation) |
-| Python | 3.11 | Runtime environment | [Download](https://www.python.org/downloads/) |
-| Poetry | ≥1.8.3 | Package management | [Install Guide](https://python-poetry.org/docs/#installation) |
-| Docker | ≥27.1.1 | Containerization | [Install Guide](https://docs.docker.com/engine/install/) |
-| AWS CLI | ≥2.15.42 | Cloud management | [Install Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
-| Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
+| Tool    | Version  | Purpose                             | Installation Link                                                                              |
+| ------- | -------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
+| pyenv   | ≥2.3.36  | Multiple Python versions (optional) | [Install Guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)                |
+| Python  | 3.11     | Runtime environment                 | [Download](https://www.python.org/downloads/)                                                  |
+| Poetry  | ≥1.8.3   | Package management                  | [Install Guide](https://python-poetry.org/docs/#installation)                                  |
+| Docker  | ≥27.1.1  | Containerization                    | [Install Guide](https://docs.docker.com/engine/install/)                                       |
+| AWS CLI | ≥2.15.42 | Cloud management                    | [Install Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
+| Git     | ≥2.44.0  | Version control                     | [Download](https://git-scm.com/downloads)                                                      |
 
 ### Cloud services
 
 The code also uses and depends on the following cloud services. For now, you don't have to do anything. We will guide you in the installation and deployment sections on how to use them:
 
-| Service | Purpose |
-|---------|---------|
-| [HuggingFace](https://huggingface.com/) | Model registry |
-| [Comet ML](https://www.comet.com/site/) | Experiment tracker |
-| [Opik](https://www.comet.com/site/products/opik/) | Prompt monitoring |
-| [ZenML](https://www.zenml.io/) | Orchestrator and artifacts layer |
-| [AWS](https://aws.amazon.com/) | Compute and storage |
-| [MongoDB](https://www.mongodb.com/) | NoSQL database |
-| [Qdrant](https://qdrant.tech/) | Vector database |
-| [GitHub Actions](https://github.com/features/actions) | CI/CD pipeline |
+| Service                                               | Purpose                          |
+| ----------------------------------------------------- | -------------------------------- |
+| [HuggingFace](https://huggingface.com/)               | Model registry                   |
+| [Comet ML](https://www.comet.com/site/)               | Experiment tracker               |
+| [Opik](https://www.comet.com/site/products/opik/)     | Prompt monitoring                |
+| [ZenML](https://www.zenml.io/)                        | Orchestrator and artifacts layer |
+| [AWS](https://aws.amazon.com/)                        | Compute and storage              |
+| [MongoDB](https://www.mongodb.com/)                   | NoSQL database                   |
+| [Qdrant](https://qdrant.tech/)                        | Vector database                  |
+| [GitHub Actions](https://github.com/features/actions) | CI/CD pipeline                   |
 
 In the [LLM Engineer's Handbook](https://www.amazon.com/LLM-Engineers-Handbook-engineering-production/dp/1836200072/), Chapter 2 will walk you through each tool. Chapters 10 and 11 provide step-by-step guides on how to set up everything you need.
 
@@ -71,10 +71,10 @@ Here is the directory overview:
 ├── code_snippets/       # Standalone example code
 ├── configs/             # Pipeline configuration files
 ├── llm_engineering/     # Core project package
-│   ├── application/    
-│   ├── domain/         
-│   ├── infrastructure/ 
-│   ├── model/         
+│   ├── application/
+│   ├── domain/
+│   ├── infrastructure/
+│   ├── model/
 ├── pipelines/           # ML pipeline definitions
 ├── steps/               # Pipeline components
 ├── tests/               # Test examples
@@ -85,7 +85,7 @@ Here is the directory overview:
 │   ├── data_warehouse.py
 ```
 
-`llm_engineering/`  is the main Python package implementing LLM and RAG functionality. It follows Domain-Driven Design (DDD) principles:
+`llm_engineering/` is the main Python package implementing LLM and RAG functionality. It follows Domain-Driven Design (DDD) principles:
 
 - `domain/`: Core business entities and structures
 - `application/`: Business logic, crawlers, and RAG implementation
@@ -101,6 +101,7 @@ The code logic and imports flow as follows: `infrastructure` → `model` → `ap
 `tests/`: Covers a few sample tests used as examples within the CI pipeline.
 
 `tools/`: Utility scripts used to call the ZenML pipelines and inference code:
+
 - `run.py`: Entry point script to run ZenML pipelines.
 - `ml_service.py`: Starts the REST API inference server.
 - `rag.py`: Demonstrates usage of the RAG retrieval module.
@@ -118,10 +119,10 @@ Start by cloning the repository and navigating to the project directory:
 
 ```bash
 git clone https://github.com/PacktPublishing/LLM-Engineers-Handbook.git
-cd LLM-Engineers-Handbook 
+cd LLM-Engineers-Handbook
 ```
 
-Next, we have to prepare your Python environment and its adjacent dependencies. 
+Next, we have to prepare your Python environment and its adjacent dependencies.
 
 ### 2. Set Up Python Environment
 
@@ -216,22 +217,28 @@ If you're experiencing issues with `poethepoet`, you can still run the project c
 2. Use `poetry run` with the underlying command
 
 #### Example:
+
 Instead of:
+
 ```bash
 poetry poe local-infrastructure-up
 ```
+
 Use the direct command from pyproject.toml:
+
 ```bash
 poetry run <actual-command-from-pyproject-toml>
 ```
+
 Note: All project commands are defined in the [tool.poe.tasks] section of pyproject.toml
+
 </details>
 
 Now, let's configure our local project with all the necessary credentials and tokens to run the code locally.
 
 ### 5. Local Development Setup
 
-After you have installed all the dependencies, you must create and fill a `.env` file with your credentials to appropriately interact with other services and run the project. Setting your sensitive credentials in a `.env` file is a good security practice, as this file won't be committed to GitHub or shared with anyone else. 
+After you have installed all the dependencies, you must create and fill a `.env` file with your credentials to appropriately interact with other services and run the project. Setting your sensitive credentials in a `.env` file is a good security practice, as this file won't be committed to GitHub or shared with anyone else.
 
 1. First, copy our example by running the following:
 
@@ -316,7 +323,7 @@ cat ~/.aws/credentials
 ```
 
 > [!IMPORTANT]
-> Additional configuration options are available in [settings.py](https://github.com/PacktPublishing/LLM-Engineers-Handbook/blob/main/llm_engineering/settings.py). Any variable in the `Settings` class can be configured through the `.env` file. 
+> Additional configuration options are available in [settings.py](https://github.com/PacktPublishing/LLM-Engineers-Handbook/blob/main/llm_engineering/settings.py). Any variable in the `Settings` class can be configured through the `.env` file.
 
 ## 🏗️ Infrastructure
 
@@ -328,11 +335,13 @@ When running the project locally, we host a MongoDB and Qdrant database using Do
 > You need Docker installed (>= v27.1.1)
 
 For ease of use, you can start the whole local development infrastructure with the following command:
+
 ```bash
 poetry poe local-infrastructure-up
 ```
 
 Also, you can stop the ZenML server and all the Docker containers using the following command:
+
 ```bash
 poetry poe local-infrastructure-down
 ```
@@ -344,6 +353,7 @@ poetry poe local-infrastructure-down
 > This is done by default when using Poe the Poet.
 
 Start the inference real-time RESTful API:
+
 ```bash
 poetry poe run-inference-ml-service
 ```
@@ -356,8 +366,9 @@ poetry poe run-inference-ml-service
 Dashboard URL: `localhost:8237`
 
 Default credentials:
-  - `username`: default
-  - `password`: 
+
+- `username`: default
+- `password`:
 
 → Find out more about using and setting up [ZenML](https://docs.zenml.io/).
 
@@ -376,8 +387,9 @@ Database URI: `mongodb://llm_engineering:llm_engineering@127.0.0.1:27017`
 Database name: `twin`
 
 Default credentials:
-  - `username`: llm_engineering
-  - `password`: llm_engineering
+
+- `username`: llm_engineering
+- `password`: llm_engineering
 
 → Find out more about using and setting up [MongoDB with Docker](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker).
 
@@ -391,6 +403,7 @@ You can search your MongoDB collections using your **IDEs MongoDB plugin** (whic
 Here we will quickly present how to deploy the project to AWS and other serverless services. We won't go into the details (as everything is presented in the book) but only point out the main steps you have to go through.
 
 First, reinstall your Python dependencies with the AWS group:
+
 ```bash
 poetry install --with aws
 ```
@@ -403,51 +416,64 @@ poetry install --with aws
 By this point, we expect you to have AWS CLI installed and your AWS CLI and project's env vars (within the `.env` file) properly configured with an AWS admin user.
 
 To ensure best practices, we must create a new AWS user restricted to creating and deleting only resources related to AWS SageMaker. Create it by running:
+
 ```bash
 poetry poe create-sagemaker-role
 ```
+
 It will create a `sagemaker_user_credentials.json` file at the root of your repository with your new `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` values. **But before replacing your new AWS credentials, also run the following command to create the execution role (to create it using your admin credentials).**
 
 To create the IAM execution role used by AWS SageMaker to access other AWS resources on our behalf, run the following:
+
 ```bash
 poetry poe create-sagemaker-execution-role
 ```
-It will create a `sagemaker_execution_role.json` file at the root of your repository with your new `AWS_ARN_ROLE` value. Add it to your `.env` file. 
+
+It will create a `sagemaker_execution_role.json` file at the root of your repository with your new `AWS_ARN_ROLE` value. Add it to your `.env` file.
 
 Once you've updated the `AWS_ACCESS_KEY`, `AWS_SECRET_KEY`, and `AWS_ARN_ROLE` values in your `.env` file, you can use AWS SageMaker. **Note that this step is crucial to complete the AWS setup.**
 
 #### Training
 
 We start the training pipeline through ZenML by running the following:
+
 ```bash
 poetry poe run-training-pipeline
 ```
+
 This will start the training code using the configs from `configs/training.yaml` directly in SageMaker. You can visualize the results in Comet ML's dashboard.
 
 We start the evaluation pipeline through ZenML by running the following:
+
 ```bash
 poetry poe run-evaluation-pipeline
 ```
+
 This will start the evaluation code using the configs from `configs/evaluating.yaml` directly in SageMaker. You can visualize the results in `*-results` datasets saved to your Hugging Face profile.
 
 #### Inference
 
 To create an AWS SageMaker Inference Endpoint, run:
+
 ```bash
 poetry poe deploy-inference-endpoint
 ```
+
 To test it out, run:
+
 ```bash
 poetry poe test-sagemaker-endpoint
 ```
+
 To delete it, run:
+
 ```bash
 poetry poe delete-inference-endpoint
 ```
 
 #### AWS: ML pipelines, artifacts, and containers
 
-The ML pipelines, artifacts, and containers are deployed to AWS by leveraging ZenML's deployment features. Thus, you must create an account with ZenML Cloud and follow their guide on deploying a ZenML stack to AWS. Otherwise, we provide step-by-step instructions in **Chapter 11**, section **Deploying the LLM Twin's pipelines to the cloud** on what you must do.  
+The ML pipelines, artifacts, and containers are deployed to AWS by leveraging ZenML's deployment features. Thus, you must create an account with ZenML Cloud and follow their guide on deploying a ZenML stack to AWS. Otherwise, we provide step-by-step instructions in **Chapter 11**, section **Deploying the LLM Twin's pipelines to the cloud** on what you must do.
 
 #### Qdrant & MongoDB
 
@@ -456,6 +482,7 @@ We leverage Qdrant's and MongoDB's serverless options when deploying the project
 #### GitHub Actions
 
 We use GitHub Actions to implement our CI/CD pipelines. To implement your own, you have to fork our repository and set the following env vars as Actions secrets in your forked repository:
+
 - `AWS_ACCESS_KEY_ID`
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_ECR_NAME`
@@ -466,6 +493,7 @@ Also, we provide instructions on how to set everything up in **Chapter 11**, sec
 #### Comet ML & Opik
 
 You can visualize the results on their self-hosted dashboards if you create a Comet account and correctly set the `COMET_API_KEY` env var. As Opik is powered by Comet, you don't have to set up anything else along Comet:
+
 - [Comet ML (for experiment tracking)](https://www.comet.com/)
 - [Opik (for prompt monitoring)](https://www.comet.com/opik)
 
@@ -476,6 +504,7 @@ All the ML pipelines will be orchestrated behind the scenes by [ZenML](https://w
 The ZenML pipelines are the entry point for most processes throughout this project. They are under the `pipelines/` folder. Thus, when you want to understand or debug a workflow, starting with the ZenML pipeline is the best approach.
 
 To see the pipelines running and their results:
+
 - go to your ZenML dashboard
 - go to the `Pipelines` section
 - click on a specific pipeline (e.g., `feature_engineering`)
@@ -487,6 +516,7 @@ Now, let's explore all the pipelines you can run. From data collection to traini
 ### Data pipelines
 
 Run the data collection ETL:
+
 ```bash
 poetry poe run-digital-data-etl
 ```
@@ -494,28 +524,35 @@ poetry poe run-digital-data-etl
 > [!WARNING]
 > You must have Chrome (or another Chromium-based browser) installed on your system for LinkedIn and Medium crawlers to work (which use Selenium under the hood). Based on your Chrome version, the Chromedriver will be automatically installed to enable Selenium support. Another option is to run everything using our Docker image if you don't want to install Chrome. For example, to run all the pipelines combined you can run `poetry poe run-docker-end-to-end-data-pipeline`. Note that the command can be tweaked to support any other pipeline.
 >
+> - MacOS Fix: Go to Macintosh HD > Applications > Python3.11 folder > double click on "Install Certificates.command" file.
+>
 > If, for any other reason, you don't have a Chromium-based browser installed and don't want to use Docker, you have two other options to bypass this Selenium issue:
+>
 > - Comment out all the code related to Selenium, Chrome and all the links that use Selenium to crawl them (e.g., Medium), such as the `chromedriver_autoinstaller.install()` command from [application.crawlers.base](https://github.com/PacktPublishing/LLM-Engineers-Handbook/blob/main/llm_engineering/application/crawlers/base.py) and other static calls that check for Chrome drivers and Selenium.
 > - Install Google Chrome using your CLI in environments such as GitHub Codespaces or other cloud VMs using the same command as in our [Docker file](https://github.com/PacktPublishing/LLM-Engineers-Handbook/blob/main/Dockerfile#L10).
 
 To add additional links to collect from, go to `configs/digital_data_etl_[author_name].yaml` and add them to the `links` field. Also, you can create a completely new file and specify it at run time, like this: `python -m llm_engineering.interfaces.orchestrator.run --run-etl --etl-config-filename configs/digital_data_etl_[your_name].yaml`
 
 Run the feature engineering pipeline:
+
 ```bash
 poetry poe run-feature-engineering-pipeline
 ```
 
 Generate the instruct dataset:
+
 ```bash
 poetry poe run-generate-instruct-datasets-pipeline
 ```
 
 Generate the preference dataset:
+
 ```bash
 poetry poe run-generate-preference-datasets-pipeline
 ```
 
 Run all of the above compressed into a single pipeline:
+
 ```bash
 poetry poe run-end-to-end-data-pipeline
 ```
@@ -523,21 +560,25 @@ poetry poe run-end-to-end-data-pipeline
 ### Utility pipelines
 
 Export the data from the data warehouse to JSON files:
+
 ```bash
 poetry poe run-export-data-warehouse-to-json
 ```
 
 Import data to the data warehouse from JSON files (by default, it imports the data from the `data/data_warehouse_raw_data` directory):
+
 ```bash
 poetry poe run-import-data-warehouse-from-json
 ```
 
 Export ZenML artifacts to JSON:
+
 ```bash
 poetry poe run-export-artifact-to-json-pipeline
 ```
 
 This will export the following ZenML artifacts to the `output` folder as JSON files (it will take their latest version):
+
 - cleaned_documents.json
 - instruct_datasets.json
 - preference_datasets.json
@@ -548,11 +589,13 @@ You can configure what artifacts to export by tweaking the `configs/export_artif
 ### Training pipelines
 
 Run the training pipeline:
+
 ```bash
 poetry poe run-training-pipeline
 ```
 
 Run the evaluation pipeline:
+
 ```bash
 poetry poe run-evaluation-pipeline
 ```
@@ -563,16 +606,19 @@ poetry poe run-evaluation-pipeline
 ### Inference pipelines
 
 Call the RAG retrieval module with a test query:
+
 ```bash
 poetry poe call-rag-retrieval-module
 ```
 
 Start the inference real-time RESTful API:
+
 ```bash
 poetry poe run-inference-ml-service
 ```
 
 Call the inference real-time RESTful API with a test query:
+
 ```bash
 poetry poe call-inference-ml-service
 ```
@@ -585,18 +631,21 @@ Remember that you can monitor the prompt traces on [Opik](https://www.comet.com/
 ### Linting & formatting (QA)
 
 Check or fix your linting issues:
+
 ```bash
 poetry poe lint-check
 poetry poe lint-fix
 ```
 
 Check or fix your formatting issues:
+
 ```bash
 poetry poe format-check
 poetry poe format-fix
 ```
 
 Check the code for leaked credentials:
+
 ```bash
 poetry poe gitleaks-check
 ```
@@ -604,6 +653,7 @@ poetry poe gitleaks-check
 ### Tests
 
 Run all the tests using the following command:
+
 ```bash
 poetry poe test
 ```
