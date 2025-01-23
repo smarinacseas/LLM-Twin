@@ -38,6 +38,11 @@ class BaseSeleniumCrawler(BaseCrawler, ABC):
         options.add_argument(f"--data-path={mkdtemp()}")
         options.add_argument(f"--disk-cache-dir={mkdtemp()}")
         options.add_argument("--remote-debugging-port=9226")
+        
+        # Added options to avoid Cloudfare detection
+        options.add_argument("--disable-blink-features=AutomationControlled")  # Avoid detection
+        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.198 Safari/537.36")
+
 
         self.set_extra_driver_options(options)
 
